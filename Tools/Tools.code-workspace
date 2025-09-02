@@ -1,0 +1,230 @@
+{
+	"launch": {
+		"configurations": [
+			{
+				"name": "Run BuildContent",
+				
+				"preLaunchTask": "build",
+
+				"type": "coreclr",
+				"request": "launch",
+				"windows": {
+					"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/win-x64/BuildContent.dll",
+				},
+				"linux": {
+					"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/linux-x64/BuildContent.dll",
+				},
+				"args": [],
+				"cwd": "${workspaceFolder:Content}",
+				"stopAtEntry": false,
+				"console": "internalConsole",
+				//this lets us breakpoint in BuildScript.csx
+				"requireExactSource": false,
+				"logging": {
+					"moduleLoad": false,
+					"threadExit": false,
+					"processExit": true,
+					"programOutput": true
+				},
+			},
+			{
+				"name": "Debug Native Code (Windows)",
+
+				"preLaunchTask": "build",
+
+				"type": "cppvsdbg",
+				"request": "launch",
+				"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/win-x64/BuildContent.exe",
+				"args": [],
+				"cwd": "${workspaceFolder:Content}",
+				"visualizerFile": "${workspaceFolder:Tools}/../Engine/build/cobalt.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Debug Native Code (Linux)",
+
+				"preLaunchTask": "build",
+
+				"type": "lldb",
+				"request": "launch",
+				"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/linux-x64/BuildContent",
+				"args": [],
+				"cwd": "${workspaceFolder:Content}"
+			}
+		],
+		"compounds": []
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "restore",
+				"type": "process",
+				"command": "dotnet",
+				"linux": {
+					"args": [
+						"restore",
+						"-p:TargetRuntimeIdentifier=linux-x64"
+					]
+				},
+				"windows": {
+					"args": [
+						"restore",
+						"-p:TargetRuntimeIdentifier=win-x64"
+					]
+				},
+				"options": {
+					"cwd": "${workspaceFolder:Tools}"
+				},
+				"problemMatcher": "$msCompile",
+				"group": "build"
+			},
+			{
+				"label": "build",
+				"dependsOn": [
+					"build native libs"
+				],
+				"type": "process",
+				"command": "dotnet",
+				"linux": {
+					"args": [
+						"build",
+						"--no-restore",
+						"-p:TargetRuntimeIdentifier=linux-x64"
+					]
+				},
+				"windows": {
+					"args": [
+						"build",
+						"--no-restore",
+						"-p:TargetRuntimeIdentifier=win-x64"
+					]
+				},
+				"options": {
+					"cwd": "${workspaceFolder:Tools}"
+				},
+				"problemMatcher": "$msCompile",
+				"group": {
+					"kind": "build",
+					"isDefault": true
+				}
+			},
+			{
+				"label": "build native libs",
+				"type": "cmake",
+				"command": "build",
+				"group": "build",
+				"problemMatcher": "$gcc",
+				"hide": true
+			},
+			{
+				"label": "clean content",
+				"type": "shell",
+				"windows": {
+					"command": "rm",
+					"args": [
+						"-Recurse",
+						"-Force",
+						"-Confirm:$false",
+						"-ErrorAction", "Ignore",
+						"${workspaceFolder:Content}/.build/built",
+						",",
+						"${workspaceFolder:Content}/.build/cache",
+						",",
+						"${workspaceFolder:Content}/.build/dcc"
+					]
+				},
+				"linux": {
+					"command": "rm",
+					"args": [
+						"-rf",
+						"${workspaceFolder:Content}/.build/built",
+						"${workspaceFolder:Content}/.build/cache",
+						"${workspaceFolder:Content}/.build/dcc"
+					]
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "trace",
+				"type": "process",
+				"linux": {
+					"command": "dotnet",
+					"args": [
+						"trace",
+						"collect",
+						"--output", "../Perf/Traces/content-build",
+						"--format", "Speedscope",
+						"--show-child-io",
+						"--",
+						"${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/linux-x64/BuildContent"
+					],
+					"options": {
+						"cwd": "${workspaceFolder:Content}",
+						"env": {
+							"PATH": "${env:PATH}:~/.dotnet/tools"
+						}
+					},
+				},
+				"windows": {
+					"command": "${env:PROGRAMFILES}/dotnet/dotnet.exe",
+					"args": [
+						"trace",
+						"collect",
+						"--output", "../Perf/Traces/content-build.nettrace",
+						"--show-child-io",
+						"--",
+						"${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/win-x64/BuildContent"
+					],
+					"options": {
+						"cwd": "${workspaceFolder:Content}",
+					},
+				},
+				"problemMatcher": []
+			}
+		]
+	},
+	"folders": [
+		{
+			"name": "Tools",
+			"path": "."
+		},
+		{
+			"name": "Content",
+			"path": "../Content"
+		}
+	],
+	"settings": {
+		"C_Cpp.formatting": "disabled",
+		"C_Cpp.autoAddFileAssociations": false,
+		"cmake.sourceDirectory": "${workspaceFolder:Tools}/Cobalt.Content.Native",
+		"cmake.buildDirectory": "${workspaceFolder:Tools}/.cmake-build/${buildType}",
+		"dotnet.defaultSolution": "Tools.sln",
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false,
+		"editor.tabSize": 4,
+		"files.associations": {
+			"*.vkmod": "glsl",
+			"*.sampler": "jsonc",
+			"*.in": "jsonc",
+			"*.vin": "jsonc",
+			"*.ds": "jsonc",
+			"*.gpipe": "jsonc",
+			"*.mtl": "jsonc"
+		},
+		"files.exclude": {
+			"**/bin/": true,
+			"**/obj/": true
+		},
+		"task.autoDetect": "off"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-dotnettools.csharp",
+			"ms-vscode.cmake-tools",
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csdevkit",
+			"shader-slang.slang-language-extension"
+		]
+	}
+}

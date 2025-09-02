@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+
+		<AssemblyName>BuildContent</AssemblyName>
+		<RootNamespace>Cobalt.Content.Build</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Cobalt.Content\Cobalt.Content.csproj" />
+	</ItemGroup>
+</Project>

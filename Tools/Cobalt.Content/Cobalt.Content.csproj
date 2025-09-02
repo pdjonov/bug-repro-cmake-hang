@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+
+		<AssemblyName>Cobalt.Content</AssemblyName>
+		<RootNamespace>Cobalt.Content</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<NativeLibConfiguration Condition="'$(NativeLibConfiguration)' == ''">Debug</NativeLibConfiguration>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+		<Content Include="..\Cobalt.Content.Native\bin\$(NativeLibConfiguration)\Cobalt.Content.Native.so" CopyToOutputDirectory="PreserveNewest" Visible="False" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+		<Content Include="..\Cobalt.Content.Native\bin\$(NativeLibConfiguration)\Cobalt.Content.Native.dll" CopyToOutputDirectory="PreserveNewest" Visible="False" />
+	</ItemGroup>
+</Project>

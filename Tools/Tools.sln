@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cobalt.Content", "Cobalt.Content\Cobalt.Content.csproj", "{747E2D8E-8AB1-4E0B-8C2D-48D53ED516B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildContent", "BuildContent\BuildContent.csproj", "{EAD4DFDE-150D-41BB-B89B-A722C144FC8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{747E2D8E-8AB1-4E0B-8C2D-48D53ED516B1}.Debug|x64.ActiveCfg = Debug|x64
+		{747E2D8E-8AB1-4E0B-8C2D-48D53ED516B1}.Debug|x64.Build.0 = Debug|x64
+		{747E2D8E-8AB1-4E0B-8C2D-48D53ED516B1}.Release|x64.ActiveCfg = Release|x64
+		{747E2D8E-8AB1-4E0B-8C2D-48D53ED516B1}.Release|x64.Build.0 = Release|x64
+		{EAD4DFDE-150D-41BB-B89B-A722C144FC8E}.Debug|x64.ActiveCfg = Debug|x64
+		{EAD4DFDE-150D-41BB-B89B-A722C144FC8E}.Debug|x64.Build.0 = Debug|x64
+		{EAD4DFDE-150D-41BB-B89B-A722C144FC8E}.Release|x64.ActiveCfg = Release|x64
+		{EAD4DFDE-150D-41BB-B89B-A722C144FC8E}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+EndGlobal
