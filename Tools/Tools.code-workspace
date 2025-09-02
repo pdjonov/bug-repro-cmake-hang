@@ -15,7 +15,7 @@
 					"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/linux-x64/BuildContent.dll",
 				},
 				"args": [],
-				"cwd": "${workspaceFolder:Content}",
+				//"cwd": "${workspaceFolder:Content}",
 				"stopAtEntry": false,
 				"console": "internalConsole",
 				//this lets us breakpoint in BuildScript.csx
@@ -36,7 +36,7 @@
 				"request": "launch",
 				"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/win-x64/BuildContent.exe",
 				"args": [],
-				"cwd": "${workspaceFolder:Content}",
+				//"cwd": "${workspaceFolder:Content}",
 				"visualizerFile": "${workspaceFolder:Tools}/../Engine/build/cobalt.natvis",
 				"showDisplayString": true
 			},
@@ -49,7 +49,7 @@
 				"request": "launch",
 				"program": "${workspaceFolder:Tools}/BuildContent/bin/x64/Debug/net9.0/linux-x64/BuildContent",
 				"args": [],
-				"cwd": "${workspaceFolder:Content}"
+				//"cwd": "${workspaceFolder:Content}"
 			}
 		],
 		"compounds": []
@@ -82,7 +82,7 @@
 			{
 				"label": "build",
 				"dependsOn": [
-					"build native libs"
+					//"build native libs"
 				],
 				"type": "process",
 				"command": "dotnet",
