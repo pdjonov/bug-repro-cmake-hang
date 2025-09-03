@@ -82,7 +82,7 @@
 			{
 				"label": "build",
 				"dependsOn": [
-					//"build native libs"
+					"build native libs"
 				],
 				"type": "process",
 				"command": "dotnet",
