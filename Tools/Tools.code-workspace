@@ -115,7 +115,7 @@
 				"command": "build",
 				"group": "build",
 				"problemMatcher": "$gcc",
-				"hide": true
+				//"hide": true
 			},
 			{
 				"label": "clean content",
