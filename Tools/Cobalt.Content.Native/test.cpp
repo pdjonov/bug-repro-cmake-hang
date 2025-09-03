@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <cstddef>
 
 #ifdef _MSC_VER
 #define EXPORT extern "C" __declspec(dllexport)
